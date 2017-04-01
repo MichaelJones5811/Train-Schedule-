@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>The Chicago Express</title>
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<!-- Latest compiled and minified CSS -->
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<!-- firebase link -->
+<script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> 
+
+ <!-- <script src="https://code.jquery.com/jquery-1.10.2.js"></script> -->
+  <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="assets/javascript/js.js"></script>
+
+</head>
+<body id = "format">
+	<div class="container">
+		<div class="jumbotron" id = "format">
+			<h1>The Chi-Town Express</h1>
+			<h2>You are standing on the tracks and the train is coming through</h2>
+
+		</div> <!-- end of jumbotron -->
+	<div class="row ">
+		<div class="panel panel-default">
+		  <div class="panel-heading" id = "format">Chicago Transit Authority</div>
+  			<div class="panel-body" id = "format">
+  				<table class="table table-striped">
+				    <thead>
+				      <tr>
+				        <th>Train Name</th>
+				        <th>Destination</th>
+				        <th>Frequency(min)</th>
+				        <th>Next Arrival</th>
+				        <th>Minutes Away</th>
+				      </tr>
+				    </thead>
+				    <tbody>
+				      <tr>
+				        <td id = "trainName">John</td>
+				        <td id = "destination">Doe</td>
+				        <td id = "frequency">john@example.com</td>
+				        <td id = "nextArrival"></td>
+				        <td id = "minutesAway"></td>
+				      </tr>	     
+				    </tbody>
+				</table><!-- end of table -->
+			</div>  <!-- end of panel body -->
+	  	</div><!--  end of panel -->
+	</div><!--  end of row	 -->
+  	
+  	<div class="row">		
+		<div class="panel panel-default format">
+		  <div class="panel-heading" id = "format">Add Train </div>
+			  <div class="panel-body" id = "format">
+			  		<form>
+					  <div class="form-group">
+					    <label for="trainName">Train Name:</label>
+					    <input type="text" class="form-control" id="trainName1">
+					  </div>
+
+					  <div class="form-group">
+					    <label for="destination">Destination:</label>
+					    <input type="text" class="form-control" id="destination1">
+					  </div>
+
+					  <div class="form-group">
+					    <label for="firstTrain">First Train Time(HH:mm - military time):</label>
+					    <input type="number" class="form-control" id="firstTrain1">
+					  </div>
+
+					  <div class="form-group">
+					    <label for="frequency">Frequency (min):</label>
+					    <input type="number" class="form-control" id="frequency1">
+					  </div>
+
+					  <button type="submit" class="btn btn-default" id ="onClick">Submit</button>
+					</form> <!-- end of form -->
+			  </div> <!-- end of panel body -->
+		</div> <!-- end of panel -->
+	</div> <!-- end of row -->
+		 
+
+	</div> <!-- end of container -->
+
+</body>
+</html>
