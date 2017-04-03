@@ -34,24 +34,32 @@ var trainName = "";
 var destination = "";
 var firstTrain = "";
 var frequency = "";
+var nextArrival = "";
+var minutesAway = "";
 
 $(document).ready(function(){
+// clear the input boxs in the html
+  function clear(){
+    $("#trainName1").val("");
+    $("#destination1").val("");
+    $("#firstTrain1").val("");
+    $("#frequency1").val("");     
+  }
+  // saves the data in the input boxes
 	function saveInput(){
 		trainName = $("#trainName1").val().trim();
 		destination = $("#destination1").val().trim();
+		//firstTrain = moment($("#firstTrain1").val().trim()).format("HH:mm");
 		firstTrain = $("#firstTrain1").val().trim();
 		frequency = $("#frequency1").val().trim();
+    clear();
 	}
 	$("#onClick").on("click",function(){
 	  event.preventDefault();
 		saveInput();
-		
-		// console.log(trainName);
-		// console.log(destination);
-		// console.log(firstTrain);
-		// console.log(frequency);
-
-		database.ref().set({
+    
+    
+		database.ref().push({
 			trainName: trainName,
 			destination: destination,
 			firstTrain: firstTrain,
@@ -60,19 +68,35 @@ $(document).ready(function(){
 		});		
 	});
 
-	database.ref().on("value", function(snapshot) {
+	database.ref().on("child_added", function(snapshot) {
 
       // Print the initial data to the console.
-      console.log(snapshot.val());
+       console.log(snapshot.val());
 
-      // Log the value of the various properties
+       
       console.log(snapshot.val().trainName);
       console.log(snapshot.val().destination);
-      console.log(snapshot.val().firstTrain);
       console.log(snapshot.val().frequency);
+      console.log(snapshot.val().nextArrival);
+      console.log(snapshot.val().minutesAway);
+
+
+
+
+
+
+
+      // Log the value of the various properties
+      $("#trainSchedule").append
+      ("<tr><td>" + snapshot.val().trainName + "</td><td>" +snapshot.val().destination+ "</td><td>" + snapshot.val().frequency + "</td><td>" + snapshot.val().nextArrival + "</td><td>" + snapshot.val().minutesAway +"</td></tr>"); 
+      // console.log(snapshot.val().trainName);
+      // console.log(snapshot.val().destination);
+      // console.log(snapshot.val().firstTrain);
+      // console.log(snapshot.val().frequency);
 
       // Change the HTML
-      // $("#displayed-data").html(snapshot.val().name + " | " + snapshot.val().age + " | " + snapshot.val().phone);
+      // $("#displayed-lastObj
+     // ").html(snapshot.val().name + " | " + snapshot.val().age + " | " + snapshot.val().phone);
 
     //   // If any errors are experienced, log them to console.
      }, function(errorObject) {

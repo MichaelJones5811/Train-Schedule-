@@ -8,6 +8,8 @@
 
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<!-- moment.js link -->
+<script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
 <!-- firebase link -->
 <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
 <!-- Latest compiled and minified JavaScript -->
@@ -28,8 +30,8 @@
 	<div class="row ">
 		<div class="panel panel-default">
 		  <div class="panel-heading" id = "format">Chicago Transit Authority</div>
-  			<div class="panel-body" id = "format">
-  				<table class="table table-striped">
+  			<div class ="panel-body" id = "format">
+  				<table class="table table-striped" id = "trainSchedule">
 				    <thead>
 				      <tr>
 				        <th>Train Name</th>
@@ -40,13 +42,7 @@
 				      </tr>
 				    </thead>
 				    <tbody>
-				      <tr>
-				        <td id = "trainName">John</td>
-				        <td id = "destination">Doe</td>
-				        <td id = "frequency">john@example.com</td>
-				        <td id = "nextArrival"></td>
-				        <td id = "minutesAway"></td>
-				      </tr>	     
+				          
 				    </tbody>
 				</table><!-- end of table -->
 			</div>  <!-- end of panel body -->
@@ -70,12 +66,12 @@
 
 					  <div class="form-group">
 					    <label for="firstTrain">First Train Time(HH:mm - military time):</label>
-					    <input type="number" class="form-control" id="firstTrain1">
+					    <input type="text" class="form-control" id="firstTrain1">
 					  </div>
 
 					  <div class="form-group">
 					    <label for="frequency">Frequency (min):</label>
-					    <input type="number" class="form-control" id="frequency1">
+					    <input type="text" class="form-control" id="frequency1">
 					  </div>
 
 					  <button type="submit" class="btn btn-default" id ="onClick">Submit</button>
