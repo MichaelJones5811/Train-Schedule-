@@ -36,6 +36,12 @@ var firstTrain = "";
 var frequency = "";
 var nextArrival = "";
 var minutesAway = "";
+var firstTimeConverted = "";
+var currentTime = "";
+var diffTime = "";
+var tRemainder = "";
+var tMinutesTillTrain = "";
+var nextTrain = "";
 
 $(document).ready(function(){
 // clear the input boxs in the html
@@ -43,27 +49,36 @@ $(document).ready(function(){
     $("#trainName1").val("");
     $("#destination1").val("");
     $("#firstTrain1").val("");
-    $("#frequency1").val("");     
+    $("#frequency1").val(""); 
+
   }
   // saves the data in the input boxes
 	function saveInput(){
 		trainName = $("#trainName1").val().trim();
 		destination = $("#destination1").val().trim();
-		//firstTrain = moment($("#firstTrain1").val().trim()).format("HH:mm");
 		firstTrain = $("#firstTrain1").val().trim();
 		frequency = $("#frequency1").val().trim();
-    clear();
+    firstTimeConverted = moment(firstTrain,"hh:mm").subtract(1,"years");
+    currentTime = moment();
+    diffTime = moment().diff(moment(firstTimeConverted),"minutes");
+    tRemainder = diffTime % frequency;
+    tMinutesTillTrain = frequency - tRemainder;
+    nextTrain = moment().add(tMinutesTillTrain, "hh:mm");
+
+    //clear();
 	}
 	$("#onClick").on("click",function(){
 	  event.preventDefault();
 		saveInput();
-    
-    
+    //console.log("here:");
 		database.ref().push({
 			trainName: trainName,
 			destination: destination,
 			firstTrain: firstTrain,
-			frequency: frequency
+     //firstTimeConverted: firstTimeConverted,
+			frequency: frequency,
+      tMinutesTillTrain: tMinutesTillTrain,
+     //nextTrain: nextTrain
 
 		});		
 	});
@@ -79,26 +94,25 @@ $(document).ready(function(){
       console.log(snapshot.val().frequency);
       console.log(snapshot.val().nextArrival);
       console.log(snapshot.val().minutesAway);
+     // console.log("here: " + snapshot.val().firstTimeConverted);
 
-
-
-
-
-
+     console.log("here: " + firstTimeConverted);
+     console.log("here: " + moment(currentTime).format("hh:mm"));
+     console.log("here: " + diffTime);
+     console.log("diffTime: "+ tRemainder);
+     console.log("minute till train " + tMinutesTillTrain);
+     console.log("next train" + nextTrain);
 
       // Log the value of the various properties
       $("#trainSchedule").append
-      ("<tr><td>" + snapshot.val().trainName + "</td><td>" +snapshot.val().destination+ "</td><td>" + snapshot.val().frequency + "</td><td>" + snapshot.val().nextArrival + "</td><td>" + snapshot.val().minutesAway +"</td></tr>"); 
+      ("<tr><td>" + snapshot.val().trainName + "</td><td>" +snapshot.val().destination+ "</td><td>" 
+        + snapshot.val().frequency + "</td><td>" + nextTrain + "</td><td>" + tMinutesTillTrain +"</td></tr>"); 
       // console.log(snapshot.val().trainName);
       // console.log(snapshot.val().destination);
       // console.log(snapshot.val().firstTrain);
       // console.log(snapshot.val().frequency);
 
-      // Change the HTML
-      // $("#displayed-lastObj
-     // ").html(snapshot.val().name + " | " + snapshot.val().age + " | " + snapshot.val().phone);
-
-    //   // If any errors are experienced, log them to console.
+          //   // If any errors are experienced, log them to console.
      }, function(errorObject) {
       console.log("The read failed: " + errorObject.code);
      });
