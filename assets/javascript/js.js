@@ -10,26 +10,7 @@
   };
   firebase.initializeApp(config);
 
-  var database = firebase.database();
-
-  // var connectionsRef = database.ref("/connections");
-
-  // var connectedRef = database.ref(".info/connected");
-
-  // connectedRef.on("value",function(snap){
-  // 	if(snap.val()){
-  // 		var con = connctionsRef.push(true);
-  // 		con.onDisconnect().remove();
-
-  // 	}
-  // });
-
-  // connectionsRef.on("value",function(snap){
-
-
-  // });
-
-// 
+var database = firebase.database();
 var trainName = "";
 var destination = "";
 var firstTrain = "";
@@ -53,7 +34,7 @@ $(document).ready(function(){
 
   }
 
-	
+	// on click to store the input values from the texts boxes
 	$("#onClick").on("click",function(){
 	  event.preventDefault();
     trainName = $("#trainName1").val().trim();
@@ -72,29 +53,25 @@ $(document).ready(function(){
 	database.ref().on("child_added", function(snapshot) {
 
       // Print the initial data to the console.
-       console.log(snapshot.val());
-
-       
+      console.log(snapshot.val());   
       console.log(snapshot.val().trainName);
       console.log(snapshot.val().destination);
       console.log(snapshot.val().firstTrain);
       console.log(snapshot.val().frequency);
-      
+      // calulated fields
     firstTimeConverted = moment(snapshot.val().firstTrain,"hh:mm").subtract(1,"years");
     currentTime = moment();
     diffTime = moment().diff(moment(firstTimeConverted),"minutes");
     tRemainder = diffTime % snapshot.val().frequency;
     tMinutesTillTrain = snapshot.val().frequency - tRemainder;
     nextTrain = moment().add(tMinutesTillTrain,"minutes");
-
+      //console out calulated fields
      console.log("first converted: " + firstTimeConverted);
      console.log("currentTime: " + moment(currentTime).format("hh:mm"));
      console.log("diffTime " + diffTime);
      console.log("tRemainder: "+ tRemainder);
      console.log("minute till train " + tMinutesTillTrain);
      console.log("next train" + moment(nextTrain).format("hh:mm"));
-// calulated fields
-   
 
       // Log the value of the various properties
       $("#trainSchedule").append
