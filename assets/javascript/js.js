@@ -1,4 +1,3 @@
-  alert("hello world");
 
   var config = {
     apiKey: "AIzaSyAA7-IFg1XCga_pzEWc4aD5rp_v8PZR0iU",
