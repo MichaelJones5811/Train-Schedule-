@@ -52,34 +52,20 @@ $(document).ready(function(){
     $("#frequency1").val(""); 
 
   }
-  // saves the data in the input boxes
-	function saveInput(){
-		trainName = $("#trainName1").val().trim();
-		destination = $("#destination1").val().trim();
-		firstTrain = $("#firstTrain1").val().trim();
-		frequency = $("#frequency1").val().trim();
-    firstTimeConverted = moment(firstTrain,"hh:mm").subtract(1,"years");
-    currentTime = moment();
-    diffTime = moment().diff(moment(firstTimeConverted),"minutes");
-    tRemainder = diffTime % frequency;
-    tMinutesTillTrain = frequency - tRemainder;
-    nextTrain = moment().add(tMinutesTillTrain, "hh:mm");
 
-    //clear();
-	}
+	
 	$("#onClick").on("click",function(){
 	  event.preventDefault();
-		saveInput();
-    //console.log("here:");
-		database.ref().push({
+    trainName = $("#trainName1").val().trim();
+    destination = $("#destination1").val().trim();
+    firstTrain = $("#firstTrain1").val().trim();
+    frequency = $("#frequency1").val().trim();
+   
+	   database.ref().push({
 			trainName: trainName,
 			destination: destination,
 			firstTrain: firstTrain,
-     //firstTimeConverted: firstTimeConverted,
 			frequency: frequency,
-      tMinutesTillTrain: tMinutesTillTrain,
-     //nextTrain: nextTrain
-
 		});		
 	});
 
@@ -91,26 +77,30 @@ $(document).ready(function(){
        
       console.log(snapshot.val().trainName);
       console.log(snapshot.val().destination);
+      console.log(snapshot.val().firstTrain);
       console.log(snapshot.val().frequency);
-      console.log(snapshot.val().nextArrival);
-      console.log(snapshot.val().minutesAway);
-     // console.log("here: " + snapshot.val().firstTimeConverted);
+      
+    firstTimeConverted = moment(snapshot.val().firstTrain,"hh:mm").subtract(1,"years");
+    currentTime = moment();
+    diffTime = moment().diff(moment(firstTimeConverted),"minutes");
+    tRemainder = diffTime % snapshot.val().frequency;
+    tMinutesTillTrain = snapshot.val().frequency - tRemainder;
+    nextTrain = moment().add(tMinutesTillTrain,"minutes");
 
-     console.log("here: " + firstTimeConverted);
-     console.log("here: " + moment(currentTime).format("hh:mm"));
-     console.log("here: " + diffTime);
-     console.log("diffTime: "+ tRemainder);
+     console.log("first converted: " + firstTimeConverted);
+     console.log("currentTime: " + moment(currentTime).format("hh:mm"));
+     console.log("diffTime " + diffTime);
+     console.log("tRemainder: "+ tRemainder);
      console.log("minute till train " + tMinutesTillTrain);
-     console.log("next train" + nextTrain);
+     console.log("next train" + moment(nextTrain).format("hh:mm"));
+// calulated fields
+   
 
       // Log the value of the various properties
       $("#trainSchedule").append
       ("<tr><td>" + snapshot.val().trainName + "</td><td>" +snapshot.val().destination+ "</td><td>" 
-        + snapshot.val().frequency + "</td><td>" + nextTrain + "</td><td>" + tMinutesTillTrain +"</td></tr>"); 
-      // console.log(snapshot.val().trainName);
-      // console.log(snapshot.val().destination);
-      // console.log(snapshot.val().firstTrain);
-      // console.log(snapshot.val().frequency);
+        + snapshot.val().frequency + "</td><td>" + moment(nextTrain).format("HH:mm") + "</td><td>" + tMinutesTillTrain +"</td></tr>"); 
+     
 
           //   // If any errors are experienced, log them to console.
      }, function(errorObject) {
